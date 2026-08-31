@@ -12,14 +12,18 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #f5f5f3;
+      --bg: #f3f4f8;
       --card: #ffffff;
-      --text: #111111;
-      --muted: #666666;
-      --accent: #6B5CE7;
-      --accent-light: #ede9ff;
-      --border: #e4e4e4;
-      --dot: #d0d0d0;
+      --text: #12131a;
+      --muted: #656b78;
+      --accent: #2f5bff;
+      --accent-2: #7c6ff0;
+      --accent-light: #eaefff;
+      --border: #e6e8ee;
+      --dot: #d7dae2;
+      --hero-1: #c9d4fb;
+      --hero-2: #eef1ff;
+      --hero-3: #cdf3f8;
     }
 
     html { scroll-behavior: smooth; }
@@ -46,14 +50,57 @@
     }
 
     /* ── HERO ── */
+    .hero-wrap {
+      position: relative;
+      z-index: 1;
+      margin: 20px;
+      border-radius: 36px;
+      min-height: calc(100vh - 40px);
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--hero-1) 0%, var(--hero-2) 45%, var(--hero-3) 100%);
+      box-shadow: 0 24px 60px rgba(70, 90, 180, 0.16);
+      display: flex;
+      flex-direction: column;
+    }
+
     .hero {
       position: relative;
       z-index: 1;
+      flex: 1;
+      overflow: hidden;
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
       text-align: center;
-      padding: 100px 24px 72px;
+      padding: 100px 24px;
+    }
+
+    .hero::before,
+    .hero::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.55;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .hero::before {
+      width: 380px;
+      height: 380px;
+      background: #a9b8ff;
+      top: -120px;
+      left: -100px;
+    }
+
+    .hero::after {
+      width: 420px;
+      height: 420px;
+      background: #a6ecf5;
+      bottom: -140px;
+      right: -120px;
     }
 
     .hero h1 {
@@ -81,10 +128,9 @@
       max-width: 580px;
       line-height: 1.65;
       font-weight: 400;
-      margin-bottom: 44px;
+      margin-bottom: 40px;
     }
 
-    /* ── SOCIAL ICONS ── */
     .social-links {
       display: flex;
       gap: 14px;
@@ -96,23 +142,25 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 52px;
-      height: 52px;
+      width: 50px;
+      height: 50px;
       border-radius: 50%;
-      background: var(--text);
-      color: #fff;
+      background: rgba(255, 255, 255, 0.65);
+      backdrop-filter: blur(6px);
+      color: var(--text);
       text-decoration: none;
-      transition: transform 0.2s ease, background 0.2s ease;
+      transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
     }
 
     .social-links a:hover {
       transform: translateY(-3px);
       background: var(--accent);
+      color: #fff;
     }
 
     .social-links svg {
-      width: 22px;
-      height: 22px;
+      width: 20px;
+      height: 20px;
       fill: currentColor;
     }
 
@@ -137,22 +185,29 @@
     .projects {
       position: relative;
       z-index: 1;
+      background: var(--card);
+      padding: 64px 24px 80px;
+      scroll-margin-top: 0;
+    }
+
+    .projects .section-label,
+    .projects .projects-grid,
+    .projects .see-more-wrap {
       max-width: 1020px;
-      margin: 0 auto;
-      padding: 0 24px 80px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .projects-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 28px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
       margin-bottom: 40px;
     }
 
     .project-card {
       background: var(--card);
-      border-radius: 14px;
-      padding: 32px 30px 28px;
+      border-radius: 22px;
       border: 1px solid var(--border);
       box-shadow: 0 1px 3px rgba(0,0,0,0.04);
       position: relative;
@@ -160,44 +215,56 @@
       transition: transform 0.22s ease, box-shadow 0.22s ease;
       display: flex;
       flex-direction: column;
-    }
-
-    .project-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--accent), #a78bfa);
+      text-decoration: none;
+      color: inherit;
     }
 
     .project-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 32px rgba(107,92,231,0.10);
+      transform: translateY(-5px);
+      box-shadow: 0 16px 36px rgba(47,91,255,0.14);
+    }
+
+    .project-card.is-disabled {
+      cursor: default;
+      opacity: 0.72;
+    }
+
+    .project-card.is-disabled:hover {
+      transform: none;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    }
+
+    .tech-tag.coming-soon {
+      color: var(--muted);
+      border-style: dashed;
+      font-style: italic;
+    }
+
+    .card-body {
+      padding: 26px 24px 20px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
     }
 
     .card-tag {
-      display: inline-flex;
-      align-items: center;
+      display: block;
       font-size: 0.68rem;
       font-weight: 600;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--accent);
-      background: var(--accent-light);
-      border-radius: 999px;
-      padding: 4px 10px;
-      margin-bottom: 18px;
-      width: fit-content;
+      margin-bottom: 20px;
     }
 
     .card-tag span.dot-sep {
-      margin: 0 5px;
+      margin: 0 4px;
       opacity: 0.5;
     }
 
     .project-card h3 {
       font-family: 'Sora', sans-serif;
-      font-size: 1.08rem;
+      font-size: 1.15rem;
       font-weight: 700;
       color: var(--text);
       margin-bottom: 12px;
@@ -205,22 +272,21 @@
     }
 
     .project-card p {
-      font-size: 0.875rem;
+      font-size: 0.86rem;
       color: var(--muted);
-      line-height: 1.65;
-      margin-bottom: 20px;
-      flex-grow: 1;
+      line-height: 1.6;
+      margin-bottom: 18px;
     }
 
     .tech-tags {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-bottom: 22px;
+      margin-top: auto;
     }
 
     .tech-tag {
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       font-weight: 500;
       color: var(--text);
       border: 1px solid var(--border);
@@ -229,18 +295,36 @@
       background: var(--bg);
     }
 
-    .view-project {
-      font-size: 0.83rem;
-      font-weight: 600;
-      color: var(--accent);
-      text-decoration: none;
-      display: inline-flex;
+    /* ── CARD THUMBNAIL (bleeds to card edges, ref image style) ── */
+    .card-thumb {
+      height: 140px;
+      display: flex;
       align-items: center;
-      gap: 4px;
-      transition: gap 0.2s;
+      justify-content: center;
+      border-top: 1px solid var(--border);
     }
 
-    .view-project:hover { gap: 8px; }
+    .card-thumb svg {
+      width: 60%;
+      height: 60%;
+      fill: none;
+      stroke: currentColor;
+    }
+
+    .thumb-1 { background: linear-gradient(135deg, #dbe4ff, #eef2ff); color: var(--accent); }
+    .thumb-1 svg { fill: currentColor; stroke: none; }
+
+    .thumb-2 { background: linear-gradient(135deg, #dff7f4, #e6f2ff); color: #14b8a6; }
+    .thumb-2 svg { fill: currentColor; stroke: none; }
+
+    .thumb-3 { background: linear-gradient(135deg, #ece9fe, #e0e7ff); color: var(--accent-2); }
+    .thumb-3 svg { stroke: currentColor; fill: none; }
+    .thumb-3 svg circle { fill: currentColor; }
+
+    .thumb-4 { background: linear-gradient(135deg, #e0f2fe, #eef2ff); color: #0ea5e9; }
+    .thumb-4 svg { stroke: currentColor; }
+    .thumb-4 svg circle { fill: currentColor; stroke: none; }
+    .thumb-4 svg line { opacity: 0.6; }
 
     /* ── SEE MORE ── */
     .see-more-wrap {
@@ -396,7 +480,8 @@
     }
 
     /* ── RESPONSIVE ── */
-    @media (max-width: 860px) {
+    @media (max-width: 900px) {
+      .projects-grid { grid-template-columns: repeat(2, 1fr); }
       .skills-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
@@ -404,6 +489,7 @@
       .projects-grid { grid-template-columns: 1fr; }
       .skills-grid { grid-template-columns: repeat(2, 1fr); }
       .hero { padding: 72px 20px 56px; }
+      .hero-wrap { margin: 12px; border-radius: 26px; min-height: calc(100vh - 24px); }
     }
 
     @media (max-width: 420px) {
@@ -414,10 +500,11 @@
 <body>
 
   <!-- HERO -->
+  <div class="hero-wrap">
   <section class="hero">
-    <p class="subtitle">Data Analytics &amp; Strategic Consulting</p>
+    <p class="subtitle">Data Analyst · SQL, Python &amp; Power BI</p>
     <h1>Hadiqa Naeem</h1>
-    <p class="tagline">Analyze, clean, and transform raw business data into actionable insights; identify trends through exploratory analysis and statistical techniques; and develop interactive dashboards and reports to track KPIs, operational performance, and key business metrics.</p>
+    <p class="tagline">I turn raw business data into clear, actionable insights — building interactive dashboards and reports that track KPIs and performance across the business.</p>
 
     <div class="social-links">
       <!-- GitHub -->
@@ -435,8 +522,8 @@
         </svg>
       </a>
 
-      <!-- Email: opens Gmail compose in a new tab (works even without a default mail app set) -->
-      <a href="https://mail.google.com/mail/?view=cm&fs=1&to=hashmihijazi7@gmail.com" target="_blank" rel="noopener" aria-label="Email">
+      <!-- Email: address is built in JS at click-time so it isn't scrapable as plain text -->
+      <a href="https://mail.google.com/mail/?view=cm&fs=1&to=hadiqaanaeem@gmail.com" id="email-link" aria-label="Email">
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path d="M20 4H4C2.9 4 2 4.9 2 6v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
         </svg>
@@ -465,63 +552,103 @@
   </section>
 
   <!-- PROJECTS -->
-  <section class="projects">
+  <section class="projects" id="projects">
+    <p class="section-label">Selected Work</p>
     <div class="projects-grid">
 
       <!-- Card 1 -->
-      <div class="project-card">
-        <span class="card-tag">SQL<span class="dot-sep">·</span>Dashboard</span>
-        <h3>Retail Transactions Analysis</h3>
-        <p>Explored 2 years of transactional data to identify seasonal spikes, product performance, and customer churn risk — leading to a 12% revenue strategy improvement.</p>
-        <div class="tech-tags">
-          <span class="tech-tag">SQL</span>
-          <span class="tech-tag">Powerbi</span>
-	  <span class="tech-tag">DAX</span>
-          <span class="tech-tag">Interactive Dashboard</span>
+      <a class="project-card" href="https://github.com/Hadiqa-Naeem/SQL-Interactive_Dashboard_PowerBi" target="_blank" rel="noopener">
+        <div class="card-body">
+          <span class="card-tag">SQL <span class="dot-sep">·</span> Dashboard</span>
+          <h3>Retail Transactions Analysis</h3>
+          <p>Explored 2 years of transactional data to identify seasonal spikes, product performance, and customer churn risk — leading to a 12% revenue strategy improvement.</p>
+          <div class="tech-tags">
+            <span class="tech-tag">SQL</span>
+            <span class="tech-tag">Power BI</span>
+            <span class="tech-tag">DAX</span>
+            <span class="tech-tag">Interactive Dashboard</span>
+          </div>
         </div>
-        <a href="https://github.com/Hadiqa-Naeem/SQL-Interactive_Dashboard_PowerBi" class="view-project">View project →</a>
-      </div>
+        <div class="card-thumb thumb-1">
+          <svg viewBox="0 0 120 70" xmlns="http://www.w3.org/2000/svg">
+            <rect x="8"  y="34" width="14" height="28" rx="3"/>
+            <rect x="30" y="18" width="14" height="44" rx="3"/>
+            <rect x="52" y="26" width="14" height="36" rx="3"/>
+            <rect x="74" y="8"  width="14" height="54" rx="3"/>
+            <rect x="96" y="20" width="14" height="42" rx="3"/>
+          </svg>
+        </div>
+      </a>
 
       <!-- Card 2 -->
-      <div class="project-card">
-        <span class="card-tag">EDA<span class="dot-sep">·</span>Reporting</span>
-        <h3>HR Analysis Report</h3>
-        <p>Interactive Power BI dashboard tracking attrition, department headcount, and diversity metrics — used weekly by the HR leadership team.</p>
-        <div class="tech-tags">
-          <span class="tech-tag">Jupyter Notebook</span>
-          <span class="tech-tag">Report</span>
-          <span class="tech-tag">Python</span>
-          <span class="tech-tag">EDA</span>
+      <a class="project-card" href="https://github.com/Hadiqa-Naeem/HR-Analysis-in-Python" target="_blank" rel="noopener">
+        <div class="card-body">
+          <span class="card-tag">EDA <span class="dot-sep">·</span> Reporting</span>
+          <h3>HR Analysis Report</h3>
+          <p>Interactive Power BI dashboard tracking attrition, department headcount, and diversity metrics — used weekly by the HR leadership team.</p>
+          <div class="tech-tags">
+            <span class="tech-tag">Jupyter Notebook</span>
+            <span class="tech-tag">Report</span>
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">EDA</span>
+          </div>
         </div>
-        <a href="https://github.com/Hadiqa-Naeem/HR-Analysis-in-Python" class="view-project">View project →</a>
-      </div>
+        <div class="card-thumb thumb-2">
+          <svg viewBox="0 0 70 70" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="35" cy="35" r="26" fill="none" stroke-width="10" stroke-dasharray="70 100" stroke-linecap="round" transform="rotate(-90 35 35)"/>
+            <circle cx="35" cy="35" r="26" fill="none" stroke-width="10" stroke-dasharray="18 100" stroke-dashoffset="-70" stroke-linecap="round" opacity="0.55" transform="rotate(-90 35 35)"/>
+            <circle cx="35" cy="35" r="26" fill="none" stroke-width="10" stroke-dasharray="12 100" stroke-dashoffset="-88" stroke-linecap="round" opacity="0.3" transform="rotate(-90 35 35)"/>
+          </svg>
+        </div>
+      </a>
 
       <!-- Card 3 -->
-      <div class="project-card">
-        <span class="card-tag">Advance<span class="dot-sep">·</span>SQL</span>
-        <h3>Advanced Retail  Sales Analysis</h3>
-        <p>Data cleaning, KPI calculation, customer analytics, sales trends, product performance, fulfillment analysis, and advanced SQL techniques such as CTEs, window functions, ranking, and rolling calculations.
-
-</p>
-        <div class="tech-tags">
-          <span class="tech-tag">CTE</span>
-          <span class="tech-tag">Window Functions</span>
-          <span class="tech-tag">Reuseable View</span>
+      <a class="project-card" href="https://github.com/Hadiqa-Naeem/advanced-retail-sales-sql-analysis" target="_blank" rel="noopener">
+        <div class="card-body">
+          <span class="card-tag">Advanced <span class="dot-sep">·</span> SQL</span>
+          <h3>Advanced Retail Sales Analysis</h3>
+          <p>Data cleaning, KPI calculation, customer analytics, sales trends, and advanced SQL techniques such as CTEs, window functions, and rolling calculations.</p>
+          <div class="tech-tags">
+            <span class="tech-tag">CTE</span>
+            <span class="tech-tag">Window Functions</span>
+            <span class="tech-tag">Reusable View</span>
+          </div>
         </div>
-        <a href="https://github.com/Hadiqa-Naeem/advanced-retail-sales-sql-analysis" class="view-project">View project →</a>
-      </div>
+        <div class="card-thumb thumb-3">
+          <svg viewBox="0 0 120 60" xmlns="http://www.w3.org/2000/svg">
+            <polyline points="4,48 24,32 44,40 64,16 84,24 100,6 116,14" fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="64" cy="16" r="4"/>
+            <circle cx="100" cy="6" r="4"/>
+          </svg>
+        </div>
+      </a>
 
       <!-- Card 4 -->
-      <div class="project-card">
-        <span class="card-tag">SQL<span class="dot-sep">·</span>Reporting</span>
-        <h3>Supply Chain Performance Report</h3>
-        <p>Complex SQL across 5 relational tables surfacing delivery delays, supplier reliability scores, and cost overruns in a Tableau-connected report.</p>
-        <div class="tech-tags">
-          <span class="tech-tag">SQL</span>
-          <span class="tech-tag">Tableau</span>
-          <span class="tech-tag">PostgreSQL</span>
+      <div class="project-card is-disabled">
+        <div class="card-body">
+          <span class="card-tag">SQL <span class="dot-sep">·</span> Reporting</span>
+          <h3>Supply Chain Performance Report</h3>
+          <p>Complex SQL across 5 relational tables surfacing delivery delays, supplier reliability scores, and cost overruns in a Tableau-connected report.</p>
+          <div class="tech-tags">
+            <span class="tech-tag">SQL</span>
+            <span class="tech-tag">Tableau</span>
+            <span class="tech-tag">PostgreSQL</span>
+            
+          </div>
         </div>
-        <a href="#" class="view-project">View project →</a>
+        <div class="card-thumb thumb-4">
+          <svg viewBox="0 0 120 70" xmlns="http://www.w3.org/2000/svg">
+            <line x1="14" y1="14" x2="52" y2="34" stroke-width="2"/>
+            <line x1="52" y1="34" x2="98" y2="18" stroke-width="2"/>
+            <line x1="52" y1="34" x2="30" y2="56" stroke-width="2"/>
+            <line x1="52" y1="34" x2="90" y2="54" stroke-width="2"/>
+            <circle cx="14" cy="14" r="6"/>
+            <circle cx="52" cy="34" r="8"/>
+            <circle cx="98" cy="18" r="6"/>
+            <circle cx="30" cy="56" r="6"/>
+            <circle cx="90" cy="54" r="6"/>
+          </svg>
+        </div>
       </div>
 
     </div>
@@ -544,6 +671,7 @@
       </a>
     </div>
   </section>
+  </div>
 
   <!-- SKILLS -->
   <section class="skills">
@@ -569,13 +697,13 @@
           <span class="skill-pill">SQL</span>
           <span class="skill-pill">PostgreSQL</span>
           <span class="skill-pill">MySQL</span>
-          <span class="skill-pill">BigQuery</span>
+          <span class="skill-pill">DataBricks</span>
         </div>
       </div>
 
       <div class="skill-group">
         <span class="skill-group-icon">📈</span>
-        <p class="skill-group-title">Visualisation</p>
+        <p class="skill-group-title">Visualization</p>
         <div class="skill-pills">
           <span class="skill-pill">Power BI</span>
           <span class="skill-pill">Tableau</span>
@@ -597,5 +725,22 @@
     <span class="footer-line">Turning data into decisions.</span>
   </footer>
 
+  <script>
+    // Email built at click-time instead of sitting as a plain-text string in the HTML source.
+    (function () {
+      var user = 'hadiqaanaeem';
+      var domain = 'gmail.com';
+      var link = document.getElementById('email-link');
+      if (!link) return;
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        window.open(
+          'https://mail.google.com/mail/?view=cm&fs=1&to=' + user + '@' + domain,
+          '_blank',
+          'noopener'
+        );
+      });
+    })();
+  </script>
 </body>
 </html>
